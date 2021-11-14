@@ -1,0 +1,67 @@
+print("Ahoj")
+def menu():
+    try:
+        soubor1 = input("Nazev prvniho souboru:")
+        soubor2 = input("Nazev druheho souboru:")
+        s1 = open(prvni_soubor, "f")
+        s2 = open(druhy_soubor, "s")
+    
+    
+    except FileNotFoundError:
+        print("Zadal jsi neco spatne:")
+
+    
+    while True:
+        print("
+        1 ----> prevod souboru na mala pismena.
+        2 ----> nahrada prvniho zadaneho znaku za jiny.
+        3 ----> statistika poctu urcitych znaku.
+        ")
+        
+        vyber = input("Co jako vlastne chcete? ")
+        if vyber == "1":
+            prevod_pismen(s1, s2)
+
+        elif vyber == "2":
+            nahrazeni(s1, s2, input("Zadejte znak co chcete změnit"), input("Zdadejte znak, kterym nahradite ten prvni "))
+
+        elif vyber == "3":
+            stat(s1)
+
+
+def prevod(file1, file2):
+    for line in file1:
+        file2.write(line.lower())
+
+
+def nahrazeni(file1, file2, znak1, znak2):
+    while True:
+        pismeno = file1.read(1)
+        if pismeno == "":
+            break
+
+
+def stat(file1):
+    odznacky = {}
+    while True:
+        pismeno = file1.read(1)
+        if pismeno == "":
+            file1.seek(0)
+            break
+        else:
+            if pismeno not in odznacky.keys():
+                odznacky[pismeno] = 1
+            else:
+                odznacky[pismeno] += 1
+    for key in sorted(odznacky.keys()):
+        if key == "\n":
+            print(f"(\\n) --- {odznacky[key]}")
+        else:
+            print(f"({key}) --- {odznacky[key]}")
+
+
+
+
+
+if __name__ == "__main__":
+    menu()
